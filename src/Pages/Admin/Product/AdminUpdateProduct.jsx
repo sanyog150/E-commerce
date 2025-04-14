@@ -412,10 +412,10 @@ const AdminUpdateProduct = () => {
                   <label>Images (<span style={{color:'red', fontSize:'15px'}}>Click on Image to Delete</span>)</label>
                   <div>
                   {Array.isArray(data?.pic)
-                      ? data.pic.map((item, index) => (
+                      ? data.pic.map((item) => (
                           <img
                             // onClick={()=>{data?.pic.slice(index,1)}}
-                            key={index}
+                            // key={index}
                             src={`${process.env.REACT_APP_BACKEND_SERVER}${item}`}
                             height={80}
                             width={80}
