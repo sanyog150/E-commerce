@@ -414,8 +414,6 @@ const AdminUpdateProduct = () => {
                   {Array.isArray(data?.pic)
                       ? data.pic.map((item) => (
                           <img
-                            // onClick={()=>{data?.pic.slice(index,1)}}
-                            // key={index}
                             src={`${process.env.REACT_APP_BACKEND_SERVER}${item}`}
                             height={80}
                             width={80}
@@ -425,7 +423,6 @@ const AdminUpdateProduct = () => {
                         ))
                       : data?.pic && (
                           <img
-                            // onClick={()=>{data?.pic.slice(index,1)}}
                             src={`${process.env.REACT_APP_BACKEND_SERVER}${data.pic}`}
                             height={80}
                             width={80}
