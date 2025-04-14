@@ -1,19 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar";
 import Breadcrum from "../../../Components/Breadcrum";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import $ from "jquery";
 
+import {getMaincategory, deleteMaincategory} from "../../../Redux/ActionCreators/MaincategoryActionCreators"
+
 import DataTable from "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
+import { useDispatch, useSelector } from "react-redux";
 
 const AdminMaincategory = () => {
-  const [MaincategoryStateData, setMaincategoryStateData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  // const table = new DataTable("#myTable");
-  // const tableRef = useRef();
+
+  const dispatch = useDispatch()
+  const MaincategoryStateData = useSelector(state=>state.MaincategoryStateData)//global state
 
   const handleShowModal = (id) => {
     setSelectedId(id);
@@ -26,56 +29,29 @@ const AdminMaincategory = () => {
   };
 
   const deleteRecord = async () => {
-    try {
-      let response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}maincategory/${selectedId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      response = await response.json();
-
-      setMaincategoryStateData(
-        MaincategoryStateData.filter((item) => item.id !== selectedId)
-      );
-
-      handleCloseModal();
-    } catch (error) {
-      console.error("Error deleting record:", error);
+    if(window.confirm("Are you sure to delete that item: ")){
+      dispatch(deleteMaincategory({selectedId}))//id:id
+      getApiData()
     }
   };
 
-  const getApiData = async () => {
-    try {
-      let response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}maincategory`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      response = await response.json();
-      setMaincategoryStateData(response);
+  const getApiData = () => {
+      
+      dispatch(getMaincategory())
+      if(MaincategoryStateData.length){
+        
+        var time = setTimeout(() => {
+          $("#myTable").DataTable();
+        },300);
+        return time
+      }
 
-      var time = setTimeout(() => {
-        $("#myTable").DataTable();
-      },300);
-      return time
-
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
   };
 
   useEffect(() => {
     let time = getApiData();
     return () => clearTimeout(time)
-  }, []);
+  }, [MaincategoryStateData.length]);
 
   return (
     <>
@@ -95,7 +71,7 @@ const AdminMaincategory = () => {
             <div className="table-responsive">
               <table
                 id="myTable"
-                className="table table-bordered table-striped table-hover"
+                className="table table-bordered table-striped table-hover "
               >
                 <thead>
                   <tr>

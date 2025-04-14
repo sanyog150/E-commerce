@@ -4,6 +4,9 @@ import Breadcrum from "../../../Components/Breadcrum";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import FormValidators from "../../../Validators/FormValidators";
 import ImageValidator from "../../../Validators/ImageValidator";
+import { useDispatch, useSelector } from "react-redux";
+import { getMaincategory, updateMaincategory } from "../../../Redux/ActionCreators/MaincategoryActionCreators";
+import maincategorySagas from "../../../Redux/Sagas/MaincategorySagas";
 
 const AdminUpdateMaincategory = () => {
   const { id } = useParams()
@@ -19,9 +22,11 @@ const AdminUpdateMaincategory = () => {
     pic: "",
   });
   
-  const [MaincategoryStateData, setMaincategoryStateData] = useState([]);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+
+  const MaincategoryStateData = useSelector(state=>state.MaincategoryStateData)
+  const dispatch = useDispatch()
 
   const getInputData = (e) => {
     const name = e.target.name;
@@ -29,6 +34,12 @@ const AdminUpdateMaincategory = () => {
       e.target.files && e.target.files.length
         ? "maincategory/" + e.target.files[0].name
         : e.target.value;
+
+    //in case of real backend
+    // const value =
+    // e.target.files && e.target.files.length
+    //   ? e.target.files[0]
+    //   : e.target.value;
 
     setErrorMessage((old) => ({
       ...old,
@@ -57,49 +68,28 @@ const AdminUpdateMaincategory = () => {
         })
         return
       }
-      if(item){
-        setShow(true)
-      }
-      let response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}maincategory/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({...data}),
-        }
-      );
-      response = await response.json();
-      console.log(response, "postData");
+      // if(item){
+      //   setShow(true)
+      // }
+      dispatch(updateMaincategory({...data}))
+
+      // const formData = new FormData()//it use ehen we get img, video,music
+      // formData.append("id",data.id)//id for python/java backend (_id for mongoDB)
+      // formData.append("name",data.name)
+      // formData.append("pic",data.pic)
+      // formData.append("active",data.active)
+      // dispatch(createMaincategory(formData))
+
       navigate("/admin/maincategory");
     }
   };
 
   useEffect(() => {
-    if(!id) return;
-    (async () => {
-      try {
-        let response = await fetch(
-          `${process.env.REACT_APP_BACKEND_SERVER}maincategory`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        response = await response.json();
-        setMaincategoryStateData(response);
-        // Update prev Data
-        const item = response.find(x=>x.id===id)
-        if(item)
-          setData({...item})
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    })();
-  }, [id]);
+   dispatch(getMaincategory())
+   if(MaincategoryStateData.length){
+    setData(MaincategoryStateData.find(x=>x.id===id))
+   }
+  }, [MaincategoryStateData.length]);
 
   return (
     <>

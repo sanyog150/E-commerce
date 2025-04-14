@@ -11,16 +11,16 @@ export function getMaincategory(){
     return{
         type : GET_MAINCATEGORY,
     }
-}
+} 
 
-export function updateMaincategory(){
+export function updateMaincategory(data){
     return{
         type : UPDATE_MAINCATEGORY,
         payload : data
     }
 }
 
-export function deleteMaincategory(){
+export function deleteMaincategory(data){
     return{
         type : DELETE_MAINCATEGORY,
         payload : data

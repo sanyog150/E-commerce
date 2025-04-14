@@ -5,6 +5,7 @@ import { FreeMode, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import { Link } from "react-router-dom";
 
 const ProductSlider = () => {
   const [showPerPage, setShowPerPage] = useState(3);
@@ -51,18 +52,18 @@ const ProductSlider = () => {
                         alt=""
                       />
                       <div className="social">
-                        <a href="">
+                        <Link to="/">
                           <i className="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-facebook"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-instagram"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-linkedin"></i>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="member-info">
@@ -92,18 +93,18 @@ const ProductSlider = () => {
                         alt=""
                       />
                       <div className="social">
-                        <a href="">
+                        <Link to="/">
                           <i className="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-facebook"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-instagram"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-linkedin"></i>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="member-info">
@@ -133,18 +134,18 @@ const ProductSlider = () => {
                         alt=""
                       />
                       <div className="social">
-                        <a href="">
+                        <Link to="/">
                           <i className="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-facebook"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-instagram"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-linkedin"></i>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="member-info">
@@ -174,18 +175,18 @@ const ProductSlider = () => {
                         alt=""
                       />
                       <div className="social">
-                        <a href="">
+                        <Link to="/">
                           <i className="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-facebook"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-instagram"></i>
-                        </a>
-                        <a href="">
+                        </Link>
+                        <Link to="/">
                           <i className="bi bi-linkedin"></i>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="member-info">

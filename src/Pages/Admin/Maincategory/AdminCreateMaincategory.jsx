@@ -4,6 +4,8 @@ import Breadcrum from "../../../Components/Breadcrum";
 import { Link, useNavigate } from "react-router-dom";
 import FormValidators from "../../../Validators/FormValidators";
 import ImageValidator from "../../../Validators/ImageValidator";
+import { useDispatch, useSelector } from "react-redux";
+import { createMaincategory, getMaincategory } from "../../../Redux/ActionCreators/MaincategoryActionCreators";
 
 const AdminCreateMaincategory = () => {
   const [data, setData] = useState({
@@ -17,9 +19,11 @@ const AdminCreateMaincategory = () => {
     pic: "Pic field is mandatory",
   });
   
-  const [MaincategoryStateData, setMaincategoryStateData] = useState([]);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+
+  const MaincategoryStateData = useSelector(state=>state.MaincategoryStateData)
+  const dispatch = useDispatch()
 
   const getInputData = (e) => {
     const name = e.target.name;
@@ -28,6 +32,12 @@ const AdminCreateMaincategory = () => {
         ? "maincategory/" + e.target.files[0].name
         : e.target.value;
 
+    //In case of real backend---
+    // const value =
+    //   e.target.files && e.target.files.length
+    //     ? e.target.files[0]
+    //     : e.target.value;
+    
     setErrorMessage((old) => ({
       ...old,
       [name]: e.target.files ? ImageValidator(e) : FormValidators(e),
@@ -55,44 +65,22 @@ const AdminCreateMaincategory = () => {
         })
         return
       }
-      // if(item){
-      //   setShow(true)
-      // }
-      let response = await fetch(
-        process.env.REACT_APP_BACKEND_SERVER + "maincategory",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({...data}),
-        }
-      );
-      response = await response.json();
-      console.log(response, "postData");
+
+      dispatch(createMaincategory({...data}))
+
+      // const formData = new FormData()//it use ehen we get img, video,music
+      // formData.append("name",data.name)
+      // formData.append("pic",data.pic)
+      // formData.append("active",data.active)
+      // dispatch(createMaincategory(formData))
+
       navigate("/admin/maincategory");
     }
   };
 
   useEffect(() => {
-    (async () => {
-      try {
-        let response = await fetch(
-          `${process.env.REACT_APP_BACKEND_SERVER}maincategory`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        response = await response.json();
-        setMaincategoryStateData(response);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    })();
-  }, []);
+      dispatch(getMaincategory())
+  }, [MaincategoryStateData.length]);
 
   return (
     <>

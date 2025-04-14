@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -23,13 +24,13 @@ const About = () => {
                   corrupti.
                 </p>
                 <div className="text-center text-lg-start">
-                  <a
-                    href="#"
+                  <Link
+                    to="/"
                     className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"
                   >
                     <span>Read More</span>
                     <i className="bi bi-arrow-right"></i>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

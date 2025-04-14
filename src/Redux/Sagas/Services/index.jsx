@@ -15,7 +15,7 @@ export async function createRecord(collection, payload) {
 //if payload have file (img, pdf, etc)
 export async function createMultipartRecord(collection, payload) {
   let response = await fetch(
-    process.env.REACT_APP_BACKEND_SERVER + collection,
+    `${process.env.REACT_APP_BACKEND_SERVER}${collection}`,
     {
       method: "POST",
       headers: {},
@@ -27,7 +27,7 @@ export async function createMultipartRecord(collection, payload) {
 
 export async function getRecord(collection) {
   let response = await fetch(
-    `${process.env.REACT_APP_BACKEND_SERVER} ${+collection}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}${collection}`,
     {
       method: "GET",
       headers: {
@@ -40,7 +40,7 @@ export async function getRecord(collection) {
 
 export async function updateRecord(collection, payload) {
   let response = await fetch(
-    `${process.env.REACT_APP_BACKEND_SERVER} ${+collection}/ ${payload.id}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}${collection}/${payload.id}`,
     {
       method: "PUT",
       headers: {
@@ -55,7 +55,7 @@ export async function updateRecord(collection, payload) {
 // if record has file (img, pdf, etc) update it.
 export async function updateMultipartRecord(collection, payload) {
   let response = await fetch(
-    `${process.env.REACT_APP_BACKEND_SERVER} ${+collection}/ ${payload.get(
+    `${process.env.REACT_APP_BACKEND_SERVER}${collection}/${payload.get(
       "id"
     )}`, //get becouse we use previous form data
     {
@@ -69,7 +69,7 @@ export async function updateMultipartRecord(collection, payload) {
 
 export async function deleteRecord(collection, payload) {
   let response = await fetch(
-    `${process.env.REACT_APP_BACKEND_SERVER} ${+collection}/ ${payload.id}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}${collection}/${payload.id}`,
     {
       method: "DELETE",
       headers: {
