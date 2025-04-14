@@ -451,11 +451,3 @@ const AdminUpdateProduct = () => {
 };
 
 export default AdminUpdateProduct;
-
-//delete images old
-// onClick={() => {
-//   setData((old) => ({
-//     ...old,
-//     pic: old.pic.filter((_, i) => i !== index),
-//   }));
-// }}
