@@ -24,6 +24,14 @@ const AdminUpdateProduct = () => {
 
   let refdiv = useRef(null);
 
+  const handleImageDelete = (imgToDelete) => {
+    setData((old) => ({
+      ...old,
+      pic: old.pic.filter((img) => img !== imgToDelete),
+    }));
+  };
+  
+
   const [data, setData] = useState({
     name: "",
     maincategory: "",
@@ -409,29 +417,36 @@ const AdminUpdateProduct = () => {
                 </div>
                 {/* Old Pics */}
                 <div className="col-md-4 mb-3">
-                  <label>Images (<span style={{color:'red', fontSize:'15px'}}>Click on Image to Delete</span>)</label>
-                  <div>
-                  {Array.isArray(data?.pic)
-                      ? data.pic.map((item) => (
-                          <img
-                            src={`${process.env.REACT_APP_BACKEND_SERVER}${item}`}
-                            height={80}
-                            width={80}
-                            className="me-1 mb-1"
-                            alt="product pic"
-                          />
-                        ))
-                      : data?.pic && (
-                          <img
-                            src={`${process.env.REACT_APP_BACKEND_SERVER}${data.pic}`}
-                            height={80}
-                            width={80}
-                            className="me-1 mb-1"
-                            alt="product pic"
-                          />
-                        )}
-                  </div>
-                </div>
+  <label>
+    Images (<span style={{ color: "red", fontSize: "15px" }}>Click on Image to Delete</span>)
+  </label>
+  <div>
+    {Array.isArray(data?.pic)
+      ? data.pic.map((item, index) => (
+          <img
+            key={index}
+            src={`${process.env.REACT_APP_BACKEND_SERVER}${item}`}
+            height={80}
+            width={80}
+            className="me-1 mb-1"
+            alt="product pic"
+            style={{ cursor: "pointer" }}
+            onClick={() => handleImageDelete(item)}
+          />
+        ))
+      : data?.pic && (
+          <img
+            src={`${process.env.REACT_APP_BACKEND_SERVER}${data.pic}`}
+            height={80}
+            width={80}
+            className="me-1 mb-1"
+            alt="product pic"
+            style={{ cursor: "pointer" }}
+            onClick={() => handleImageDelete(data.pic)}
+          />
+        )}
+  </div>
+</div>
               </div>
               {/* Form Update Button */}
               <div className="mb-3">

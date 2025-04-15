@@ -43,7 +43,7 @@ const AdminProduct = () => {
     if (ProductStateData.length) {
       var time = setTimeout(() => {
         $("#myTable").DataTable();
-      }, 300);
+      }, 500);
       return time;
     }
   };
